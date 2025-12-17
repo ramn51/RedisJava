@@ -131,8 +131,8 @@ public class ClientHandler implements Runnable{
                             StringBuilder sb = new StringBuilder();
                             sb.append("*3\r\n");
                             sb.append("$3\r\nSET\r\n");
-                            sb.append("$").append(key.length()).append("\r\n").append(key).append("\r\n");
-                            sb.append("$").append(val.length()).append("\r\n").append(val).append("\r\n");
+                            sb.append("$").append(k.length()).append("\r\n").append(k).append("\r\n");
+                            sb.append("$").append(v.length()).append("\r\n").append(v).append("\r\n");
 
                             clientSocket.getOutputStream().write(sb.toString().getBytes());
                         }
@@ -141,6 +141,28 @@ public class ClientHandler implements Runnable{
 
                         System.out.println("Replica fully synced and registered.");
                         return;
+
+                    case "PUBLISH":
+                        if(parts.size() < 3) out.print("-ERR wrong number of arguments\\r\\n");
+                        String channel = parts.get(1);
+                        String message = parts.get(2);
+
+                        System.out.println("Publishing to " + channel + ": " + message);
+
+                        PubSubManager.publish(channel, message);
+                        out.print(":1\r\n");
+//                        out.flush();
+                        break;
+
+                    case "SUBSCRIBE":
+                        if(parts.size() < 2 ) out.print("-ERR wrong number of args");
+                        String subChannel = parts.get(1);
+
+                        PubSubManager.subscribe(subChannel, clientSocket.getOutputStream());
+                        out.print("*3\r\n$9\r\nsubscribe\r\n$" + subChannel.length() + "\r\n" + subChannel + "\r\n:1\r\n");
+                        out.flush();
+                        break;
+//                        return ":1\r\n";
 
                     default:
                         out.print("-ERR Unknown command\r\n");
