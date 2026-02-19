@@ -1,12 +1,15 @@
 package storage;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import storage.StoredValue;
+import java.util.Collections;
 
 public class Storage {
     private final ConcurrentHashMap<String, StoredValue> db = new ConcurrentHashMap<>();
+    private final Map<String, Set<String>> sets = new ConcurrentHashMap<>();
 
     public void put(String key, String value, long ttl){
         System.out.println("DEBUG STORAGE: Putting " + key + " with ttl " + ttl);
@@ -46,6 +49,24 @@ public class Storage {
                 break;
         }
     }
+
+    public boolean sadd(String key, String member) {
+        sets.computeIfAbsent(key, k -> ConcurrentHashMap.newKeySet()).add(member);
+        return true;
+    }
+
+    public Set<String> smembers(String key) {
+        return sets.getOrDefault(key, Collections.emptySet());
+    }
+
+    public boolean srem(String key, String member) {
+        Set<String> set = sets.get(key);
+        if (set != null) {
+            return set.remove(member);
+        }
+        return false;
+    }
+
 
     public Set<String> keySet(){
         return db.keySet();

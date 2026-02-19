@@ -4,6 +4,7 @@ import parser.RESParser;
 import storage.Storage;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.net.*;
 import java.io.*;
@@ -163,6 +164,44 @@ public class ClientHandler implements Runnable{
                         out.flush();
                         break;
 //                        return ":1\r\n";
+
+                    case "SADD":
+                        if (parts.size() >= 3) {
+                            storage.sadd(parts.get(1), parts.get(2)); // Key, Member
+                            out.print(":1\r\n"); // Integer reply 1
+                        } else {
+                            out.print("-ERR Usage: SADD key member\r\n");
+                        }
+                        break;
+
+                    case "SMEMBERS":
+                        if (parts.size() >= 2) {
+                            Set<String> members = storage.smembers(parts.get(1));
+                            out.print("*" + members.size() + "\r\n"); // Array Header
+                            for (String m : members) {
+                                out.print("$" + m.length() + "\r\n" + m + "\r\n"); // Bulk Strings
+                            }
+                        } else {
+                            out.print("-ERR Usage: SMEMBERS key\r\n");
+                        }
+                        break;
+
+                    case "SREM":
+                        if (parts.size() >= 3) {
+                            String keyToRemove = parts.get(1);
+                            String memberToRemove = parts.get(2);
+
+                            boolean removed = storage.srem(keyToRemove, memberToRemove);
+
+                            if (removed) {
+                                out.print(":1\r\n"); // 1 is removed
+                            } else {
+                                out.print(":0\r\n"); // 0 is Member not there
+                            }
+                        } else {
+                            out.print("-ERR Usage: SREM key member\r\n");
+                        }
+                        break;
 
                     default:
                         out.print("-ERR Unknown command\r\n");
