@@ -1,7 +1,7 @@
-package server;
+package main.java.server;
 
-import parser.RESParser;
-import storage.Storage;
+import main.java.parser.RESParser;
+import main.java.storage.Storage;
 
 import java.io.*;
 import java.util.List;

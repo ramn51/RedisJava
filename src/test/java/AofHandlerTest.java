@@ -1,7 +1,7 @@
-package server.test;
+package test.java;
 
-import server.AofHandler;
-import storage.Storage;
+import main.java.server.AofHandler;
+import main.java.storage.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,10 +47,10 @@ public class AofHandlerTest {
 
         // --- PHASE 2: RECOVER (Simulating Restart) ---
 
-        // Create a FRESH, empty storage
+        // Create a FRESH, empty main.java.storage
         Storage newStorage = new Storage();
 
-        // Create a new Handler (mimicking server restart)
+        // Create a new Handler (mimicking main.java.server restart)
         AofHandler reader = new AofHandler(TEST_FILE);
 
         // Load data from disk

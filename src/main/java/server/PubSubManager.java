@@ -1,4 +1,4 @@
-package server;
+package main.java.server;
 
 import java.io.IOException;
 import java.io.OutputStream;

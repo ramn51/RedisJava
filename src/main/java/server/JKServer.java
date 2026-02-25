@@ -1,6 +1,6 @@
-package server;
-import storage.EvictionPolicy;
-import storage.Storage;
+package main.java.server;
+import main.java.storage.EvictionPolicy;
+import main.java.storage.Storage;
 
 import java.util.concurrent.*;
 import java.net.*;

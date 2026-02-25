@@ -1,4 +1,4 @@
-package server;
+package main.java.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,7 +20,7 @@ public class JKClient {
                 try {
                     String line;
                     while ((line = in.readLine()) != null) {
-                        // Just print everything the server sends instantly
+                        // Just print everything the main.java.server sends instantly
                         System.out.println("<< " + line);
                         System.out.print("> "); // Repaint prompt
                     }

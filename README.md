@@ -2,7 +2,7 @@
 
 > **A multi-threaded, persistent Redis clone built from scratch in Java.**
 
-JKRedis is a lightweight implementation of a Redis-like database server. It is built using standard Java I/O (ServerSocket) without external frameworks like Netty, designed to demonstrate deep understanding of **Systems Programming**, **Network Protocols (TCP/RESP)**, and **Concurrency**.
+JKRedis is a lightweight implementation of a Redis-like database main.java.server. It is built using standard Java I/O (ServerSocket) without external frameworks like Netty, designed to demonstrate deep understanding of **Systems Programming**, **Network Protocols (TCP/RESP)**, and **Concurrency**.
 
 ---
 
@@ -10,7 +10,7 @@ JKRedis is a lightweight implementation of a Redis-like database server. It is b
 
 ### Core Capabilities
 
-* **In-Memory Storage:** Thread-safe key-value storage using `ConcurrentHashMap`.
+* **In-Memory Storage:** Thread-safe key-value main.java.storage using `ConcurrentHashMap`.
 * **RESP Protocol:** Full implementation of the **Redis Serialization Protocol**, making it compatible with official Redis clients (`redis-cli`, Jedis, etc.).
 * **Concurrent Networking:** Handles multiple concurrent clients using a custom **Thread Pool** architecture.
 
@@ -21,7 +21,7 @@ JKRedis is a lightweight implementation of a Redis-like database server. It is b
 * Uses **fan-out architecture** with `CopyOnWriteArrayList` to safely manage concurrent subscribers without blocking publishers.
 
 
-* **Persistence (AOF):** Implements **Append-Only File** logging. Data survives server crashes and is replayed on startup (Crash Recovery).
+* **Persistence (AOF):** Implements **Append-Only File** logging. Data survives main.java.server crashes and is replayed on startup (Crash Recovery).
 * **Expiry & Eviction (TTL):** Supports `PX` (milliseconds) expiration.
 * **Lazy Eviction:** Keys checked on access.
 * **Active Eviction:** Background thread (Probabilistic Algorithm) cleans up expired keys every 100ms.
@@ -74,7 +74,7 @@ cd jkredis
 
 2. **Compile**
 ```bash
-javac -d out src/server/*.java src/storage/*.java src/parser/*.java
+javac -d out src/main.java.server/*.java src/main.java.storage/*.java src/main.java.parser/*.java
 
 ```
 
@@ -86,10 +86,10 @@ javac -d out src/server/*.java src/storage/*.java src/parser/*.java
 
 ### 1. Running a Master Node
 
-By default, the server runs on port `6379`.
+By default, the main.java.server runs on port `6379`.
 
 ```bash
-java -cp out server.JKServer --port 6379
+java -cp out main.java.server.JKServer --port 6379
 
 ```
 
@@ -98,7 +98,7 @@ java -cp out server.JKServer --port 6379
 To start a distributed system, run a second instance in a new terminal:
 
 ```bash
-java -cp out server.JKServer --port 6380 --replicaof localhost 6379
+java -cp out main.java.server.JKServer --port 6380 --replicaof localhost 6379
 
 ```
 
@@ -154,10 +154,10 @@ INFO                             # Server stats
 
 ## 🧪 Testing Persistence
 
-1. Start the server.
+1. Start the main.java.server.
 2. Run `SET user "JK"`.
-3. **Kill the server** (Ctrl+C).
-4. Restart the server.
+3. **Kill the main.java.server** (Ctrl+C).
+4. Restart the main.java.server.
 5. Run `GET user`.
 * *Result:* It returns `"JK"`. The data was recovered from `database.aof`.
 

@@ -1,4 +1,4 @@
-package storage;
+package main.java.storage;
 
 public class StoredValue {
     private final String value;

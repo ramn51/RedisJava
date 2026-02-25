@@ -1,4 +1,4 @@
-package parser;
+package main.java.parser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -87,7 +87,7 @@ public class RESParser {
             ByteArrayInputStream byteStream = new ByteArrayInputStream(rawData.getBytes());
             BufferedReader reader = new BufferedReader(new InputStreamReader(byteStream));
 
-            // Assuming your parser class is named RespParser
+            // Assuming your main.java.parser class is named RespParser
             // You might need to make the parse method 'static' or instantiate the class
             return new RESParser().parse(reader);
 

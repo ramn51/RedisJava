@@ -1,10 +1,8 @@
-package storage;
+package main.java.storage;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import storage.StoredValue;
 import java.util.Collections;
 
 public class Storage {

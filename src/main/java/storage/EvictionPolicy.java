@@ -1,4 +1,4 @@
-package storage;
+package main.java.storage;
 
 public class EvictionPolicy implements Runnable{
     private final Storage storage;

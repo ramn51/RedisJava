@@ -1,11 +1,10 @@
-package server;
+package main.java.server;
 
-import parser.RESParser;
-import storage.Storage;
+import main.java.parser.RESParser;
+import main.java.storage.Storage;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.*;
 import java.net.*;
 import java.io.*;
 
